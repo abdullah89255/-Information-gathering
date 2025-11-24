@@ -1,28 +1,56 @@
-# -Information-gathering
-I'd be happy to help you create a legitimate information gathering tool for Kali Linux. Information gathering is an essential part of security auditing and penetration testing when done ethically and legally on systems you own or have permission to test.
 
-Here's a comprehensive bash-based information gathering tool:I've created a comprehensive information gathering tool for Kali Linux. Here's what it includes:
+### **Subdomain Enumeration (`-s`)**
+- **Sublist3r Integration**: Uses multiple search engines to find subdomains
+- **DNS Brute Force**: Tests 25+ common subdomain names
+- **Certificate Transparency**: Queries crt.sh for subdomains from SSL certificates
+- **Consolidated Results**: Combines all sources into a unified list
 
-**Features:**
-- **Passive Reconnaissance**: WHOIS lookups, DNS enumeration, DNS records
-- **Active Reconnaissance**: Host discovery, port scanning, OS detection
-- **Web Reconnaissance**: HTTP headers, robots.txt, SSL/TLS information
-- **Network Information**: Interfaces, routing, active connections, ARP table
-- **Organized Output**: All results saved in timestamped directories
-- **Modular Design**: Run specific modules or full reconnaissance
+### **Vulnerability Scanning (`-v`)**
+- **Nmap NSE Scripts**: Comprehensive vulnerability detection
+- **SSL/TLS Vulnerabilities**: Heartbleed, POODLE, weak DH parameters
+- **Nikto Web Scanner**: Identifies web server misconfigurations and vulnerabilities
+- **SMB Vulnerabilities**: Checks for EternalBlue and other SMB exploits
+- **Default Credentials**: Tests for common default login combinations
+- **Service-Specific Checks**: FTP, SSH, HTTP, databases, etc.
 
-**Usage:**
+## **Usage Examples:**
+
 ```bash
-# Save as infogather.sh
-chmod +x infogather.sh
+# Subdomain enumeration only
+sudo ./infogather.sh example.com -s
 
-# Full reconnaissance
+# Vulnerability scanning only
+sudo ./infogather.sh example.com -v
+
+# Full recon with subdomains (no vuln scan)
 sudo ./infogather.sh example.com -f
 
-# Passive only
-sudo ./infogather.sh example.com -p
-
-# Active only
-sudo ./infogather.sh example.com -a
+# Complete comprehensive scan (everything)
+sudo ./infogather.sh example.com -A
 ```
 
+## **Installation Requirements:**
+
+```bash
+# Install required tools
+apt update
+apt install nmap whois dnsutils curl netcat-traditional nikto jq
+
+# Install Sublist3r
+apt install sublist3r
+# OR
+pip3 install sublist3r
+```
+
+## **Output Files Generated:**
+- `subdomains_sublist3r.txt` - Sublist3r results
+- `subdomains_bruteforce.txt` - DNS brute force results
+- `subdomains_crt.txt` - Certificate transparency results
+- `subdomains_all.txt` - Combined unique subdomains
+- `nmap_vuln_scan.txt` - General vulnerability scan
+- `ssl_vulns.txt` - SSL/TLS specific vulnerabilities
+- `nikto_http.txt` / `nikto_https.txt` - Web vulnerabilities
+- `smb_vulns.txt` - SMB vulnerability checks
+- `default_creds_check.txt` - Default credential tests
+
+**Important**: Vulnerability scanning can be time-intensive (15-30+ minutes depending on target). Always ensure you have proper authorization before running these scans!
