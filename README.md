@@ -14,7 +14,17 @@
 - **Service-Specific Checks**: FTP, SSH, HTTP, databases, etc.
 
 ## **Usage Examples:**
+### ✅ **Option 1 — Scan a single domain**
 
+```
+./infogather.sh -d example.com -f
+```
+
+### ✅ **Option 2 — Provide a subdomain list (all_subs.txt)**
+
+```
+./infogather.sh -l all_subs.txt -s
+```
 ```bash
 # Subdomain enumeration only
 sudo ./infogather.sh example.com -s
